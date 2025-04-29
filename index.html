@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Generate QR codes for any text or URL" />
+    <meta name="theme-color" content="#494eea" />
+    <link rel="stylesheet" href="style.css" />
+    <title>QR Code Generator</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>QR Code Generator</h1>
+      <p>Enter your text or URL to generate a QR code</p>
+      <input type="text" placeholder="Text or URL" name="qrtxt" id="qrtxt" />
+
+      <div id="imgbox">
+        <img src="" alt="Generated QR Code" id="qrimg" />
+      </div>
+
+      <button onclick="generateQr()">Generate QR Code</button>
+      
+      <div class="footer">
+        <p>&copy; 2024 QR Code Generator. All rights reserved.</p>
+        <p>Made by Vansh Sehgal</p>
+      </div>
+    </div>
+
+    <script>
+      let imgbox = document.getElementById("imgbox");
+      let qrimg = document.getElementById("qrimg");
+      let qrtxt = document.getElementById("qrtxt");
+
+      function generateQr() {
+        if (qrtxt.value.length > 0) {
+          qrimg.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + qrtxt.value;
+          imgbox.classList.add("show-img");
+        } else {
+          qrtxt.classList.add('error');
+          setTimeout(() => {
+            qrtxt.classList.remove('error');
+          }, 1000);
+        }
+      }
+
+      // Add keyboard support
+      qrtxt.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+          generateQr();
+        }
+      });
+    </script>
+  </body>
+</html>
